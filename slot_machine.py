@@ -9,7 +9,6 @@ class Gamer:
 
 
 class Automate:
-
     def test_your_luck(Gamer, bet):
         win_dict = {
             '111': 10,
@@ -47,7 +46,6 @@ class Automate:
                   f'Процент проигрыша: {Gamer.luck}')
 
 
-lark = Gamer()
+lark = Gamer
 auto = Automate
-
 auto.test_your_luck(lark, 1000000)
