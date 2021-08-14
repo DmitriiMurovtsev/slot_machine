@@ -2,50 +2,39 @@ from tqdm import tqdm
 import random
 
 
-class Gamer:
-    def __init__(self):
-        self.luck = 0
-        self.win = 0
+def test_your_luck(bet):
+    win = 0
+    for i in tqdm(range(0, bet)):
+        win_bet = 0
+        result_num_1 = random.randrange(0, 10)
+        result_num_2 = random.randrange(0, 10)
+        result_num_3 = random.randrange(0, 10)
+        if result_num_1 == 1 and result_num_2 == 1 and result_num_3 == 1:
+            win_bet = 10
+        elif result_num_1 == 3 and result_num_2 == 3 and result_num_3 == 3:
+            win_bet = 15
+        elif result_num_1 == 5 and result_num_2 == 5 and result_num_3 == 5:
+            win_bet = 50
+        elif result_num_1 == 9 and result_num_2 == 9 and result_num_3 == 9:
+            win_bet = 100
+        elif result_num_1 == 7 and result_num_2 == 7 and result_num_3 == 7:
+            win_bet = 200
+        elif result_num_2 == 0 and result_num_3 == 0:
+            win_bet = 2
+        elif result_num_3 == 0:
+            win_bet = 1
+        elif result_num_2 == 7 and result_num_3 == 7:
+            win_bet = 5
+        elif result_num_3 == 7:
+            win_bet = 3
+        win += win_bet
+    win = ((win - bet) / bet) * 100
+    if win > 0:
+        print(f'Ставка: {bet}\n'
+              f'Выигрыш: {win}\n')
+    elif win < 0:
+        print(f'Ставка: {bet}\n'
+              f'Проигрыш: {win}\n')
 
 
-class Automate:
-    def test_your_luck(Gamer, bet):
-        win_dict = {
-            '111': 10,
-            '333': 15,
-            '555': 50,
-            '999': 100,
-            '777': 200
-        }
-        for i in tqdm(range(0, bet)):
-            win_bet = 0
-            result_num_1 = random.randrange(0, 10)
-            result_num_2 = random.randrange(0, 10)
-            result_num_3 = random.randrange(0, 10)
-            sum_result = str(result_num_1) + str(result_num_2) + str(result_num_3)
-            if sum_result in win_dict:
-                win_bet = win_dict[sum_result]
-            elif sum_result[-1] == '0':
-                win_bet = 1
-            elif sum_result[-2] == '00':
-                win_bet = 2
-            elif sum_result[-1] == '7':
-                win_bet = 3
-            elif sum_result[-2] == '77':
-                win_bet = 5
-            Gamer.win += win_bet
-        Gamer.win = Gamer.win - bet
-        Gamer.luck = '{:.2f}'.format((Gamer.win / bet) * 100) + '%'
-        if Gamer.win > 0:
-            print(f'Ставка: {bet}\n'
-                  f'Выигрыш: {Gamer.win}\n'
-                  f'Процент выигрыша: {Gamer.luck}')
-        elif Gamer.win < 0:
-            print(f'Ставка: {bet}\n'
-                  f'Проигрыш: {Gamer.win}\n'
-                  f'Процент проигрыша: {Gamer.luck}')
-
-
-lark = Gamer
-auto = Automate
-auto.test_your_luck(lark, 1000000)
+test_your_luck(100000000)
